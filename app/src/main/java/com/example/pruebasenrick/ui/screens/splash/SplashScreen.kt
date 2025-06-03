@@ -23,12 +23,12 @@ import androidx.compose.ui.draw.clip
 
 @Composable
 fun SplashScreen(navController: NavHostController) {
-    LaunchedEffect(Unit) {
-        delay(3000)
-        navController.navigate(Screens.Login.route) {
-            popUpTo(Screens.Splash.route) { inclusive = true }
-        }
-    }
+    // LaunchedEffect(Unit) {
+    //     delay(3000)
+    //     navController.navigate(Screens.Login.route) {
+    //         popUpTo(Screens.Splash.route) { inclusive = true }
+    //     }
+    // }
 
     Box(
         modifier = Modifier
