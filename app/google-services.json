@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "237073459306",
+    "project_id": "rickandmortyappprueba",
+    "storage_bucket": "rickandmortyappprueba.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:237073459306:android:946e3b0269f8873b300213",
+        "android_client_info": {
+          "package_name": "com.example.pruebasenrick"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "237073459306-fa19gs9g200rmdg3m5148ujceuhs2a1d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pruebasenrick",
+            "certificate_hash": "4aafb7717e8c5f2a7950e4cce3ad492909be6b41"
+          }
+        },
+        {
+          "client_id": "237073459306-gsmiaekrqiohh3825ujfibs2hlmi3l0g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZBQl6Wm1WTxMvrhqCH-_9rQg5OnxwRLg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "237073459306-gsmiaekrqiohh3825ujfibs2hlmi3l0g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
