@@ -41,119 +41,20 @@ fun CharacterDetailScreen(
     } else {
         val character = vm.uiState.characterDetail
 
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    title = { Text(text = character.name, color = Color.White) },
-                    navigationIcon = {
-                        IconButton(onClick = { navController.popBackStack() }) {
-                            Icon(
-                                imageVector = Icons.Default.ArrowBack,
-                                contentDescription = "Volver",
-                                tint = Color.White
-                            )
-                        }
-                    },
-                    colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = Color(0xFF1C1C1C)
-                    )
-                )
-            },
-            containerColor = Color(0xFF121212)
-        ) { padding ->
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(padding)
-                    .verticalScroll(rememberScrollState())
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                // Imagen del personaje
-                Card(
-                    shape = RoundedCornerShape(24.dp),
-                    elevation = CardDefaults.cardElevation(12.dp),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(280.dp)
-                ) {
-                    AsyncImage(
-                        model = character.image,
-                        contentDescription = character.name,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(24.dp))
-
-                // Tarjeta con detalles divididos en dos columnas
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = CardDefaults.cardColors(containerColor = Color(0xFF1E1E1E)),
-                    shape = RoundedCornerShape(20.dp),
-                    elevation = CardDefaults.cardElevation(6.dp)
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        horizontalArrangement = Arrangement.spacedBy(16.dp)
-                    ) {
-                        Column(modifier = Modifier.weight(1f)) {
-                            CharacterDetailRow(Icons.Default.Info, "Status", character.status)
-                            CharacterDetailRow(Icons.Default.Person, "Species", character.species)
-                            CharacterDetailRow(Icons.Default.Info, "Type", character.type.ifBlank { "None" })
-                            CharacterDetailRow(Icons.Default.Face, "Gender", character.gender)
-                        }
-                        Column(modifier = Modifier.weight(1f)) {
-                            CharacterDetailRow(Icons.Default.Place, "Origin", character.origin.name)
-                            CharacterDetailRow(Icons.Default.Place, "Last Location", character.location.name)
-                            CharacterDetailRow(Icons.Default.List, "Episodes", character.episode.size.toString())
-                            CharacterDetailRow(Icons.Default.Info, "Created", character.created.substringBefore("T"))
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun CharacterDetailRow(
-    icon: ImageVector,
-    label: String,
-    value: String
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 10.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = label,
-            tint = Color(0xFF4CAF50),
+        Column(
             modifier = Modifier
-                .size(26.dp)
-                .padding(end = 12.dp)
-        )
-        Column {
-            Text(
-                text = label,
-                style = MaterialTheme.typography.labelMedium.copy(
-                    color = Color.LightGray,
-                    fontWeight = androidx.compose.ui.text.font.FontWeight.Bold
-                )
-            )
-            Text(
-                text = value,
-                style = MaterialTheme.typography.bodyLarge.copy(
-                    color = Color.White,
-                    fontWeight = androidx.compose.ui.text.font.FontWeight.Medium
-                )
-            )
+                .fillMaxSize()
+                .padding(16.dp),
+            horizontalAlignment = Alignment.Start,
+            verticalArrangement = Arrangement.Top
+        ) {
+            Text(text = "Nombre: ${character.name}")
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(text = "Estado: ${character.status}")
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(text = "Especie: ${character.species}")
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(text = "Género: ${character.gender}")
         }
     }
 }
