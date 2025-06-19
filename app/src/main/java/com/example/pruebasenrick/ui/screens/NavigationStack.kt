@@ -1,5 +1,9 @@
-package com.example.pruebasenrick.ui.screens
+package com.example.pruebasenrick.ui.screens.favorites
 
+
+
+
+import com.example.pruebasenrick.ui.screens.Screens
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -8,16 +12,20 @@ import com.example.pruebasenrick.ui.screens.characterslist.CharactersListScreen
 import com.example.pruebasenrick.ui.screens.characterdetail.CharacterDetailScreen
 import com.example.pruebasenrick.ui.screens.login.LoginScreen
 import com.example.pruebasenrick.ui.screens.splash.SplashScreen
+import androidx.compose.ui.Modifier
+
 
 @Composable
 fun NavigationStack(
     onGoogleLoginClick: () -> Unit,
     navController: NavHostController,
-    onLogoutClick: () -> Unit
+    onLogoutClick: () -> Unit,
+    modifier: Modifier = Modifier // ✅ LO AGREGÁS ACÁ
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screens.Splash.route
+        startDestination = Screens.Splash.route,
+        modifier = modifier // ✅ SE USA ACÁ
     ) {
         composable(Screens.Splash.route) {
             SplashScreen(navController)
@@ -40,6 +48,8 @@ fun NavigationStack(
                 CharacterDetailScreen(characterId = it, navController = navController)
             }
         }
+        composable(route = Screens.Favorites.route) {
+            FavoritesScreen()
+        }
     }
 }
-

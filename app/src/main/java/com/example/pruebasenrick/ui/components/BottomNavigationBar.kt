@@ -13,14 +13,13 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.pruebasenrick.ui.screens.Screens
 import androidx.compose.ui.graphics.Color
 
-
 data class BottomNavItem(val route: String, val icon: ImageVector)
 
 @Composable
 fun BottomNavigationBar(navController: NavHostController) {
     val items = listOf(
         BottomNavItem(Screens.CharacterList.route, Icons.Filled.Home),
-        BottomNavItem("favorites", Icons.Filled.FavoriteBorder),
+        BottomNavItem(Screens.Favorites.route, Icons.Filled.FavoriteBorder),
         BottomNavItem("minigame", Icons.Filled.Info)
     )
 
@@ -41,10 +40,9 @@ fun BottomNavigationBar(navController: NavHostController) {
                 },
                 selected = currentRoute == item.route,
                 onClick = {
-                    if (item.route == Screens.CharacterList.route) {
-                        navController.navigate(Screens.CharacterList.route) {
-                            popUpTo(0)
-                        }
+                    navController.navigate(item.route) {
+                        popUpTo(0)
+                        launchSingleTop = true
                     }
                 }
             )
