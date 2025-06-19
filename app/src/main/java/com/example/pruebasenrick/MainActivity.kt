@@ -1,5 +1,6 @@
 package com.example.pruebasenrick
 
+import com.example.pruebasenrick.ui.screens.favorites.NavigationStack
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -7,9 +8,12 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -17,10 +21,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.example.pruebasenrick.ui.screens.NavigationStack
 import com.example.pruebasenrick.ui.screens.Screens
 import com.example.pruebasenrick.ui.theme.PruebasenrickTheme
-
+import com.example.pruebasenrick.ui.components.BottomNavigationBar
 
 class MainActivity : ComponentActivity() {
 
@@ -62,12 +65,28 @@ class MainActivity : ComponentActivity() {
             navController = rememberNavController()
 
             PruebasenrickTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) {
+                val navBackStackEntry by navController.currentBackStackEntryAsState()
+                val currentRoute = navBackStackEntry?.destination?.route
+
+                val showBottomBar = currentRoute in listOf(
+                    Screens.CharacterList.route,
+                    Screens.Favorites.route,
+                    "minigame"
+                )
+
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    bottomBar = {
+                        if (showBottomBar) {
+                            BottomNavigationBar(navController = navController)
+                        }
+                    }
+                ) { innerPadding ->
                     NavigationStack(
+                        navController = navController,
                         onGoogleLoginClick = {
                             launcher.launch(googleSignInClient.signInIntent)
                         },
-                        navController = navController,
                         onLogoutClick = {
                             FirebaseAuth.getInstance().signOut()
                             googleSignInClient.signOut().addOnCompleteListener {
@@ -75,7 +94,8 @@ class MainActivity : ComponentActivity() {
                                     popUpTo(Screens.CharacterList.route) { inclusive = true }
                                 }
                             }
-                        }
+                        },
+                        modifier = Modifier.padding(innerPadding)
                     )
                 }
             }

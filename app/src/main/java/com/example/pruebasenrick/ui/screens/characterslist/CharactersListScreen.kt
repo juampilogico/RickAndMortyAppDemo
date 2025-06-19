@@ -2,7 +2,6 @@ package com.example.pruebasenrick.ui.screens.characterslist
 
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -19,12 +18,10 @@ import androidx.navigation.NavHostController
 import com.bumptech.glide.Glide
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.pruebasenrick.ui.screens.Screens
 import com.example.pruebasenrick.data.Character
-import com.example.pruebasenrick.ui.components.BottomNavigationBar
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Alignment
 
@@ -38,7 +35,6 @@ fun CharactersListScreen(
     val state = vm.uiState
 
     Scaffold(
-        bottomBar = { BottomNavigationBar(navController) },
         containerColor = Color(0xFF1B1F23)
     ) { innerPadding ->
         Column(
@@ -53,11 +49,6 @@ fun CharactersListScreen(
                     .padding(bottom = 12.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    text = "Hola, ${state.username}",
-                    style = MaterialTheme.typography.bodyLarge.copy(color = Color.White),
-                    modifier = Modifier.weight(1f)
-                )
                 Button(
                     onClick = onLogoutClick,
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50))
@@ -133,8 +124,7 @@ fun CharacterItem(character: Character, onClick: () -> Unit) {
         colors = CardDefaults.cardColors(containerColor = Color.DarkGray)
     ) {
         Row(
-            modifier = Modifier
-                .padding(12.dp)
+            modifier = Modifier.padding(12.dp)
         ) {
             AndroidView(
                 factory = {
@@ -172,5 +162,3 @@ fun CharacterItem(character: Character, onClick: () -> Unit) {
         }
     }
 }
-
-

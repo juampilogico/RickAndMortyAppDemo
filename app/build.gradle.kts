@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    kotlin("kapt")
     id("com.google.gms.google-services") // ✅ ESTA es la forma correcta
     id("kotlin-kapt")
 
@@ -68,7 +69,16 @@ dependencies {
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
     implementation("com.google.firebase:firebase-auth-ktx") // ✅ Agregado
-    implementation("com.google.android.gms:play-services-auth:21.0.0") // ✅ Necesario
+    implementation("com.google.android.gms:play-services-auth:21.0.0")
+    implementation(libs.androidx.room.common)
+    implementation(libs.androidx.room.compiler){
+        exclude(group = "com.intellij", module = "annotations" )
+    }
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.migration)
+    implementation(libs.androidx.room.runtime){
+        exclude(group = "com.intellij", module = "annotations" )
+    }
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -77,4 +87,5 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    kapt(libs.androidx.room.compiler)
 }
