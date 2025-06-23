@@ -13,6 +13,15 @@ import com.example.pruebasenrick.ui.screens.characterdetail.CharacterDetailScree
 import com.example.pruebasenrick.ui.screens.login.LoginScreen
 import com.example.pruebasenrick.ui.screens.splash.SplashScreen
 import androidx.compose.ui.Modifier
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.ui.Alignment
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.pruebasenrick.ui.screens.favorites.FavoritesScreen
+import com.example.pruebasenrick.ui.screens.game.GameScreen
+import com.example.pruebasenrick.ui.screens.game.GameViewModel
+import androidx.compose.runtime.collectAsState
+
 
 
 @Composable
@@ -51,5 +60,26 @@ fun NavigationStack(
         composable(route = Screens.Favorites.route) {
             FavoritesScreen()
         }
+        composable(route = Screens.Game.route) {
+            val vm: GameViewModel = viewModel()
+            val character = vm.character.collectAsState().value
+            val result = vm.result.collectAsState().value
+
+            character?.let {
+                GameScreen(
+                    navController = navController,
+                    character = it,
+                    result = result,
+                    onAnswer = { isAlive -> vm.checkAnswer(isAlive) },
+                    onNext = { vm.getRandomCharacter() }
+                )
+            } ?: run {
+                // 🌀 Loader si el personaje aún no fue cargado
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator()
+                }
+            }
+        }
     }
+
 }

@@ -1,5 +1,6 @@
 package com.example.pruebasenrick.ui.components
 
+
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -13,6 +14,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.pruebasenrick.ui.screens.Screens
 import androidx.compose.ui.graphics.Color
 
+
 data class BottomNavItem(val route: String, val icon: ImageVector)
 
 @Composable
@@ -20,7 +22,7 @@ fun BottomNavigationBar(navController: NavHostController) {
     val items = listOf(
         BottomNavItem(Screens.CharacterList.route, Icons.Filled.Home),
         BottomNavItem(Screens.Favorites.route, Icons.Filled.FavoriteBorder),
-        BottomNavItem("minigame", Icons.Filled.Info)
+        BottomNavItem(Screens.Game.route, Icons.Filled.Info)
     )
 
     NavigationBar(
